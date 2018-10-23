@@ -10,7 +10,5 @@ Write-Output "$Result"
 
 
 <#
-
 "C:\Windows\LTSvc\psIcon.lnk" -command "& {(new-object Net.WebClient).DownloadString('https://raw.githubusercontent.com/dkbrookie/Testing/master/testPopup.ps1') | iex}"
-
 #>
