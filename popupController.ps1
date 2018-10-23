@@ -1,6 +1,8 @@
 ## Clear out all variables / hash tables before starting the script
 Remove-Variable * -ErrorAction SilentlyContinue; Remove-Module *; $error.Clear(); Clear-Host
 
+$popupURL = 'https://raw.githubusercontent.com/dkbrookie/Testing/master/testPopup.ps1'
+
 ## Get the list of active users so we can run the popup on the active console numbers
 #region getUsers
 $userHash = @()
@@ -40,5 +42,8 @@ ForEach($ServerLine in @(query user) -split "\n")  {
 
 ## Run the popup command on all active sessions
 ForEach($ID in $Hash.ID){
-    &c:\psexec.exe -accepteula -s -i $ID -nobanner powershell.exe -windowstyle hidden -command "& {(new-object Net.WebClient).DownloadString('https://raw.githubusercontent.com/dkbrookie/Testing/master/testPopup.ps1') | iex | Out-File C:\test.txt}"
+    &c:\psexec.exe -accepteula -s -i $ID -nobanner powershell.exe -windowstyle hidden -command "& {(new-object Net.WebClient).DownloadString('$popupURL') | iex | Out-File C:\test.txt}" --quiet --no-verbose >$null 2>&1
 }
+
+$answer = Get-Content -Path "C:\test.txt"
+$answer
