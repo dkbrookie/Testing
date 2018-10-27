@@ -1,9 +1,11 @@
 ## Clear out all variables / hash tables before starting the script
 Remove-Variable * -ErrorAction SilentlyContinue; Remove-Module *; $error.Clear(); Clear-Host
 
+#region setVars
 $MessageTitle = "title message here"
 $MessageBody = "body of the message here"
 $popupURL = 'https://raw.githubusercontent.com/dkbrookie/Testing/master/testPopup.ps1'
+#endregion setVars
 
 ## Get the list of active users so we can run the popup on the active console numbers
 #region getUsers
@@ -44,7 +46,7 @@ ForEach($ServerLine in @(query user) -split "\n") {
 
 #region popup
 $homeDir = "$env:windir\LTSvc"
-$vbsFile = "command = ""powershell.exe -NoLogo -WindowStyle Hidden -Command (new-object Net.WebClient).DownloadString('https://raw.githubusercontent.com/dkbrookie/Testing/master/testPopup.ps1') | iex | Out-File $homeDir\'popAnswer.txt'""
+$vbsFile = "command = ""powershell.exe -NoLogo -WindowStyle Hidden -Command `$MessageBody = '$MessageBody' ; `$MessageTitle = '$MessageTitle' ; (new-object Net.WebClient).DownloadString('https://raw.githubusercontent.com/dkbrookie/Testing/master/testPopup.ps1') | iex | Out-File $homeDir\'popAnswer.txt'""
 
 set shell = CreateObject(""WScript.Shell"")
 
