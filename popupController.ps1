@@ -6,7 +6,7 @@ $popupURL = 'https://raw.githubusercontent.com/dkbrookie/Testing/master/testPopu
 ## Get the list of active users so we can run the popup on the active console numbers
 #region getUsers
 $userHash = @()
-ForEach($ServerLine in @(query user) -split "\n")  {
+ForEach($ServerLine in @(query user) -split "\n") {
     $Report = "" | Select-Object UserName, Session, ID, State, IdleTime, LogonTime
     $Parsed_Server = $ServerLine -split '\s+'
     If($Parsed_Server -like "USERNAME*"){
@@ -42,7 +42,7 @@ ForEach($ServerLine in @(query user) -split "\n")  {
 
 ## Run the popup command on all active sessions
 ForEach($ID in $Hash.ID){
-    &c:\psexec.exe -accepteula -s -i $ID -nobanner powershell.exe -windowstyle hidden -command "& {(new-object Net.WebClient).DownloadString('$popupURL') | iex | Out-File C:\test.txt}" --quiet --no-verbose >$null 2>&1
+    &c:\psexec.exe -accepteula -s -i $ID -nobanner wscript C:\popup.vbs --quiet --no-verbose >$null 2>&1
 }
 
 $answer = Get-Content -Path "C:\test.txt"

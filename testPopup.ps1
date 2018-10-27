@@ -1,11 +1,12 @@
+$MSP = 'DKBInnovative'
 Add-Type -AssemblyName PresentationCore,PresentationFramework
 $ButtonType = [System.Windows.MessageBoxButton]::YesNoCancel
 $MessageIcon = [System.Windows.MessageBoxImage]::Information
-If(!$MessageBody){
-  $MessageBody = "DKBInnovative has determined your computer needs to be restarted to complete critical patch installs. Can we reboot your computer now?"
+If(!$MessageBody) {
+  $MessageBody = "$MSP has determined your computer needs to be restarted to complete critical patch installs. Can we reboot your computer now?"
 }
-If(!$MessageTitle){
-  $MessageTitle = "Message From DKBInnovative"
+If(!$MessageTitle) {
+  $MessageTitle = "Message From $MSP"
 }
 
 $Result = [System.Windows.MessageBox]::Show($MessageBody,$MessageTitle,$ButtonType,$MessageIcon)
